@@ -5,6 +5,7 @@ import Head from "next/head"
 import { useEffect, useState } from "react"
 import Layout from "../components/layout"
 import TokenService from "../services/token.service"
+import { HiPlusSm } from "react-icons/hi"
 
 const Home: NextPage = () => {
   const { getUsers } = useB3nchClient(process.env.NEXT_PUBLIC_API_URL || "")
@@ -21,8 +22,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="flex h-full w-full items-start justify-center">
-        <div className="w-full space-y-1 px-4">
+      <div className="flex h-full w-full flex-col items-center justify-start gap-y-2 px-2">
+        <div className="w-full space-y-1">
+          <p className="mb-1 text-xs font-medium">Posts</p>
           {users.map((user) => (
             <div key={user.id} className="rounded-md border bg-white px-2 py-2">
               <p className="font-medium text-lime-500">{`${user.displayName}`}</p>

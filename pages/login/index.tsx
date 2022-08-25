@@ -77,7 +77,7 @@ const Login = () => {
               />
               <p className="mt-0.5 pl-1 text-xs text-rose-500">{error}</p>
             </div>
-            <button className="w-full rounded-lg bg-lime-500 px-3 py-1 text-sm text-white outline-none hover:bg-lime-500">
+            <button className="w-full rounded-lg bg-lime-500 px-3 py-1 text-sm text-white outline-none hover:bg-lime-600">
               Login
             </button>
           </div>

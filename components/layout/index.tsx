@@ -1,5 +1,6 @@
 import Head from "next/head"
 import React from "react"
+import BottomBar from "../bottom-bar"
 import Navbar from "../navbar"
 
 interface Props {
@@ -16,7 +17,8 @@ const Layout: React.FC<Props> = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="flex flex-1 pt-14">{children}</div>
+      <div className="flex flex-1 py-14">{children}</div>
+      <BottomBar />
     </div>
   )
 }
