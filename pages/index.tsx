@@ -22,9 +22,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <div className="flex h-full w-full items-start justify-center">
-        <div className="w-full px-4">
+        <div className="w-full space-y-1 px-4">
           {users.map((user) => (
-            <div key={user.id} className="rounded-md border px-2 py-2">
+            <div key={user.id} className="rounded-md border bg-white px-2 py-2">
               <p className="font-medium text-lime-500">{`${user.displayName}`}</p>
               <p className="-mt-1 text-xs">{`@${user.handle}`}</p>
             </div>

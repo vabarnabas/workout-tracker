@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@b3nch/client@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@b3nch/client/-/client-1.1.1.tgz#1f10162134977a3b6e111ca441c3d53ee58b02c5"
-  integrity sha512-QZ9LiFN9hlAOjqaCslC/48MHE6mgx1WKajmc8A8SlGMd+kPiHKM1aYmI8rn6iSq2jX3uWPeB8O0VNVFxGHwMxA==
+"@b3nch/client@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@b3nch/client/-/client-1.1.3.tgz#b49378d3313dbd1eda318d082f407af6fd949aaf"
+  integrity sha512-2L1mebzqiZpMlKEZsPtE3Pr6xOo0xgSEDZlLcg+gn3xyrcmMIpJW1KD3PLj8OFrqksh8ImqE+Kpqy2CV6vLpWA==
 
 "@babel/runtime-corejs3@^7.10.2":
   version "7.18.9"
@@ -36,6 +36,11 @@
     js-yaml "^4.1.0"
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
+
+"@headlessui/react@^0.0.0-insiders.b301f04":
+  version "0.0.0-insiders.b301f04"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.0.0-insiders.b301f04.tgz#12f209097f987cddbba72de40240a12648ebe12b"
+  integrity sha512-I+UUEUkdYp+AgKU1teWUZaICEg//OWl0R1UxCB50Jzfi3APu7aSY0Y+ABrgfEWDhBYTG9hNgXvMVTNCnFu49yA==
 
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
