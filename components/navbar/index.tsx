@@ -17,7 +17,14 @@ const Navbar = () => {
   const tokenservice = new TokenService()
 
   const menuOptions = [
-    { title: "Plans", action: () => {}, active: true, icon: <HiCollection /> },
+    {
+      title: "Plans",
+      action: () => {
+        router.push("/plans")
+      },
+      active: true,
+      icon: <HiCollection />,
+    },
     {
       title: "Exercises",
       action: () => {

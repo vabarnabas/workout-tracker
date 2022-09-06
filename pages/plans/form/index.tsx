@@ -2,7 +2,7 @@ import React, { Fragment, SyntheticEvent, useEffect, useState } from "react"
 import Layout from "../../../components/layout"
 import { useClient } from "workout-tracker-client"
 import TokenService from "../../../services/token.service"
-import { Category } from "workout-tracker-client/dist/types"
+import { Category, Workout } from "workout-tracker-client/dist/types"
 import Spinner from "../../../components/spinner"
 import { HiCheckCircle } from "react-icons/hi"
 import { useRouter } from "next/router"
@@ -11,16 +11,17 @@ const ExerciseForm = () => {
   const tokenservice = new TokenService()
   const router = useRouter()
   const [displayName, setDisplayName] = useState("")
-  const [categories, setCategories] = useState<Category[]>([])
+  const [query, setQuery] = useState("")
+  const [workouts, setWorkouts] = useState<Workout[]>([])
   const [error, setError] = useState("")
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([])
   const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
 
   useEffect(() => {
     const getData = async () => {
       const token = await tokenservice.getToken()
-      const data = await client.getCategories({ token })
-      setCategories(data)
+      const data = await client.getWorkouts({ token })
+      setWorkouts(data)
     }
 
     getData()
@@ -29,24 +30,23 @@ const ExerciseForm = () => {
   const onFormSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setError("")
-    if (selectedCategories.length === 0) {
+    if (selectedWorkouts.length === 0) {
       setError("Please select at least 1 category")
     } else {
       const token = await tokenservice.getToken()
       try {
-        const workout = await client.createWorkout({
+        const plan = await client.createPlan({
           token,
           displayName,
-          verified: false,
         })
-        selectedCategories.forEach(async (category) => {
+        selectedWorkouts.forEach(async (workout) => {
           await client.connectWorkout({
             token,
-            id: workout.id,
-            categoryId: category,
+            id: workout,
+            planId: plan.id,
           })
         })
-        router.push("/exercises")
+        router.push("/plans")
       } catch {
         setError("Something went wrong")
       }
@@ -54,17 +54,17 @@ const ExerciseForm = () => {
   }
 
   const handleSelection = (id: string) => {
-    selectedCategories.includes(id)
-      ? setSelectedCategories(
-          selectedCategories.filter((category) => category !== id)
+    selectedWorkouts.includes(id)
+      ? setSelectedWorkouts(
+          selectedWorkouts.filter((category) => category !== id)
         )
-      : setSelectedCategories([...selectedCategories, id])
+      : setSelectedWorkouts([...selectedWorkouts, id])
   }
 
   return (
     <Layout>
       <div className="h-full w-full px-4 py-2">
-        {categories.length === 0 ? (
+        {workouts.length === 0 ? (
           <Spinner />
         ) : (
           <form
@@ -74,7 +74,7 @@ const ExerciseForm = () => {
           >
             <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
-                Exercise Name<span className="text-rose-500">*</span>
+                Plan Name<span className="text-rose-500">*</span>
               </p>
               <input
                 value={displayName}
@@ -86,23 +86,35 @@ const ExerciseForm = () => {
             </div>
             <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
-                Categories<span className="text-rose-500">*</span>
+                Workouts<span className="text-rose-500">*</span>
               </p>
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder="Search..."
+                className="mb-3 w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
+              />
               <div className="grid grid-cols-2 gap-x-3 gap-y-3">
-                {categories
+                {workouts
+                  .filter((workout) =>
+                    workout.displayName
+                      .toLocaleLowerCase()
+                      .includes(query.toLocaleLowerCase())
+                  )
                   .sort((a, b) => a.displayName.localeCompare(b.displayName))
                   .map((category) => (
                     <div
                       onClick={() => handleSelection(category.id)}
                       className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-4 text-sm ${
-                        selectedCategories.includes(category.id)
+                        selectedWorkouts.includes(category.id)
                           ? "ring-1 ring-blue-400"
                           : ""
                       }`}
                       key={category.id}
                     >
                       <p className="">{category.displayName}</p>
-                      {selectedCategories.includes(category.id) && (
+                      {selectedWorkouts.includes(category.id) && (
                         <HiCheckCircle className="text-base text-blue-400" />
                       )}
                     </div>
