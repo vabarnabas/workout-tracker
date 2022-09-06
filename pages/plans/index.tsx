@@ -45,8 +45,8 @@ const Plans = () => {
 
   return (
     <Layout>
-      <div className="h-full w-full px-4 py-2">
-        <div className="mb-4 flex w-full items-center justify-end gap-x-3">
+      <div className="h-full w-full overflow-y-auto px-4 py-2">
+        <div className="mb-3 flex w-full items-center justify-end gap-x-3">
           {/* <div
             onClick={() => {
               setEnabled(!enabled)

@@ -15,7 +15,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-1 py-14">{children}</div>
+      <div className="flex flex-1 pt-14 pb-2">{children}</div>
       <Navbar />
     </div>
   )
