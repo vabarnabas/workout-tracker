@@ -11,6 +11,7 @@ import {
 import { useClient } from "workout-tracker-client"
 import { Plan } from "workout-tracker-client/dist/types"
 import Layout from "../../components/layout"
+import Spinner from "../../components/spinner"
 import TokenService from "../../services/token.service"
 
 const Plans = () => {
@@ -20,6 +21,7 @@ const Plans = () => {
   const [plans, setPlans] = useState<Plan[]>([])
   const [selectedPlan, setSelectedPlan] = useState("")
   const [enabled, setEnabled] = useState(false)
+  const [query, setQuery] = useState("")
 
   const handleSelection = (id: string) => {
     selectedPlan.includes(id) ? setSelectedPlan("") : setSelectedPlan(id)
@@ -35,11 +37,17 @@ const Plans = () => {
     getData()
   }, [])
 
+  const filteredPlans = plans
+    .sort((a, b) => a.displayName.localeCompare(b.displayName))
+    .filter((plan) =>
+      plan.displayName.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+    )
+
   return (
     <Layout>
       <div className="h-full w-full px-4 py-2">
-        <div className="mb-4 flex w-full items-center justify-between">
-          <div
+        <div className="mb-4 flex w-full items-center justify-end gap-x-3">
+          {/* <div
             onClick={() => {
               setEnabled(!enabled)
             }}
@@ -57,55 +65,73 @@ const Plans = () => {
             pointer-events-none inline-block aspect-square h-4 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
               />
             </Switch>
-          </div>
+          </div> */}
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            placeholder="Search..."
+            className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
+          />
           <button
             onClick={() => router.push("/plans/form")}
-            className="flex items-center justify-center rounded-md bg-blue-400 px-3 py-1.5 text-sm text-white outline-none hover:bg-blue-500"
+            className="flex min-w-max items-center justify-center rounded-md bg-blue-400 px-3 py-1.5 text-sm text-white outline-none hover:bg-blue-500"
           >
             <HiPlusSm className="mr-1" />
             New Plan
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-3">
-          {plans
-            .sort((a, b) => a.displayName.localeCompare(b.displayName))
-            .map((plan) => (
-              <div
-                onClick={() => {
-                  handleSelection(plan.id)
-                }}
-                className={`flex cursor-pointer flex-col items-start justify-center rounded-md bg-lighterGray py-2.5 px-4 text-sm
-                  `}
-                key={plan.id}
-              >
-                <div className="flex w-full items-center justify-between">
-                  <div className="">
-                    <p className="text-base font-medium">{plan.displayName}</p>
-                    <p className="text-xs font-light opacity-60">{`@${
-                      plan.user && plan.user.handle
-                    }`}</p>
+        {plans.length === 0 ? (
+          <Spinner />
+        ) : (
+          <div className="grid grid-cols-1 gap-x-4 gap-y-3">
+            {plans
+              .sort((a, b) => a.displayName.localeCompare(b.displayName))
+              .filter((plan) =>
+                plan.displayName
+                  .toLocaleLowerCase()
+                  .includes(query.toLocaleLowerCase())
+              )
+              .map((plan) => (
+                <div
+                  onClick={() => {
+                    handleSelection(plan.id)
+                  }}
+                  className={`flex cursor-pointer flex-col items-start justify-center rounded-md bg-lighterGray py-2.5 px-4 text-sm
+                `}
+                  key={plan.id}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <div className="">
+                      <p className="text-base font-medium">
+                        {plan.displayName}
+                      </p>
+                      <p className="text-xs font-light opacity-60">{`@${
+                        plan.user && plan.user.handle
+                      }`}</p>
+                    </div>
+                    {selectedPlan === plan.id ? (
+                      <HiChevronUp className="text-lg" />
+                    ) : (
+                      <HiChevronDown className="text-xl" />
+                    )}
                   </div>
-                  {selectedPlan === plan.id ? (
-                    <HiChevronUp className="text-xl" />
-                  ) : (
-                    <HiChevronDown className="text-xl" />
+                  {selectedPlan === plan.id && plan.workouts.length !== 0 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {plan.workouts.map((category) => (
+                        <p
+                          key={category.id}
+                          className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
+                        >
+                          {category.displayName}
+                        </p>
+                      ))}
+                    </div>
                   )}
                 </div>
-                {selectedPlan === plan.id && plan.workouts.length !== 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {plan.workouts.map((category) => (
-                      <p
-                        key={category.id}
-                        className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
-                      >
-                        {category.displayName}
-                      </p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
+              ))}
+          </div>
+        )}
       </div>
     </Layout>
   )
