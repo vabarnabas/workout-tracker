@@ -53,27 +53,29 @@ const ExerciseForm = () => {
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
                 Categories<span className="text-rose-500">*</span>
               </p>
-              <div className="grid grid-cols-2">
-                {categories.map((category) => (
-                  <div
-                    onClick={() => handleSelection(category.id)}
-                    className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-4 text-sm ${
-                      selectedCategories.includes(category.id)
-                        ? "ring-1 ring-blue-400"
-                        : ""
-                    }`}
-                    key={category.id}
-                  >
-                    <p className="">{category.displayName}</p>
-                    {selectedCategories.includes(category.id) && (
-                      <HiCheckCircle className="text-base text-blue-400" />
-                    )}
-                  </div>
-                ))}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                {categories
+                  .sort((a, b) => a.displayName.localeCompare(b.displayName))
+                  .map((category) => (
+                    <div
+                      onClick={() => handleSelection(category.id)}
+                      className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-4 text-sm ${
+                        selectedCategories.includes(category.id)
+                          ? "ring-1 ring-blue-400"
+                          : ""
+                      }`}
+                      key={category.id}
+                    >
+                      <p className="">{category.displayName}</p>
+                      {selectedCategories.includes(category.id) && (
+                        <HiCheckCircle className="text-base text-blue-400" />
+                      )}
+                    </div>
+                  ))}
               </div>
             </div>
             <button className="w-full rounded-md bg-blue-400 px-3 py-1.5 text-sm text-white outline-none hover:bg-blue-500">
-              Login
+              Create
             </button>
           </form>
         )}
