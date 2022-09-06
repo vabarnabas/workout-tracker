@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react"
 import React, { Fragment, useEffect, useState } from "react"
 import {
+  HiChevronDown,
   HiCollection,
   HiFolder,
   HiIdentification,
@@ -39,6 +40,7 @@ const Navbar = () => {
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-1.5 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <HiChevronDown />
               Menu
             </Menu.Button>
           </div>
