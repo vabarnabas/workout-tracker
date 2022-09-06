@@ -35,12 +35,15 @@ const Navbar = () => {
 
   return (
     <div className="fixed inset-x-0 top-0 flex h-12 items-center justify-between gap-x-4 bg-lighterGray px-4">
-      <BiDumbbell className="cursor-pointer text-3xl text-blue-400" />
+      <div className="flex cursor-pointer items-center justify-center">
+        <BiDumbbell className="text-3xl text-blue-400" />
+        <p className="ml-2 font-medium">Workout Tracker</p>
+      </div>
       <div className="z-20 text-right">
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-1.5 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-              <HiChevronDown />
+            <Menu.Button className="inline-flex w-full items-center justify-center rounded-md bg-black bg-opacity-20 px-3 py-1.5 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <HiChevronDown className="mr-1 text-base" />
               Menu
             </Menu.Button>
           </div>
