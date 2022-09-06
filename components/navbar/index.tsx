@@ -9,13 +9,17 @@ import {
 } from "react-icons/hi"
 import { BiDumbbell } from "react-icons/bi"
 import { FaStickyNote } from "react-icons/fa"
+import { useRouter } from "next/router"
 
 const Navbar = () => {
+  const router = useRouter()
   const menuOptions = [
     { title: "Plans", action: () => {}, active: true, icon: <HiCollection /> },
     {
       title: "Exercises",
-      action: () => {},
+      action: () => {
+        router.push("/exercises")
+      },
       active: true,
       icon: <HiFolder />,
     },
@@ -35,7 +39,10 @@ const Navbar = () => {
 
   return (
     <div className="fixed inset-x-0 top-0 flex h-12 items-center justify-between gap-x-4 bg-lighterGray px-4">
-      <div className="flex cursor-pointer items-center justify-center">
+      <div
+        onClick={() => router.push("/")}
+        className="flex cursor-pointer items-center justify-center"
+      >
         <BiDumbbell className="text-3xl text-blue-400" />
         <p className="ml-2 font-medium">Workout Tracker</p>
       </div>
@@ -62,6 +69,7 @@ const Navbar = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <button
+                        onClick={() => option.action()}
                         className={`${
                           active ? "bg-blue-400 " : ""
                         } group flex w-full items-center rounded-md px-2 py-1.5 text-sm text-slate-100`}

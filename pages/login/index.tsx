@@ -61,7 +61,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
-                className="w-full rounded-lg bg-lighterGray px-3 py-1 text-sm outline-none"
+                className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
               />
             </div>
             <div className="">
@@ -72,11 +72,11 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                className="w-full rounded-lg bg-lighterGray px-3 py-1 text-sm outline-none"
+                className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
               />
               <p className="mt-0.5 pl-1 text-xs text-rose-500">{error}</p>
             </div>
-            <button className="w-full rounded-lg bg-blue-400 px-3 py-1 text-sm text-white outline-none hover:bg-blue-500">
+            <button className="w-full rounded-md bg-blue-400 px-3 py-1.5 text-sm text-white outline-none hover:bg-blue-500">
               Login
             </button>
           </div>
