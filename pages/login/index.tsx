@@ -49,7 +49,7 @@ const Login = () => {
         <Spinner />
       ) : (
         <form onSubmit={(e) => onFormSubmit(e)} action="">
-          <p className="mb-4 flex items-center justify-start text-2xl font-bold">
+          <p className="mb-4 flex items-center justify-start text-3xl font-bold">
             Login
           </p>
           <div className="space-y-3">
@@ -74,7 +74,9 @@ const Login = () => {
                 type="password"
                 className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
               />
-              <p className="mt-0.5 pl-1 text-xs text-rose-500">{error}</p>
+              {error && (
+                <p className="mt-0.5 pl-1 text-xs text-rose-500">{error}</p>
+              )}
             </div>
             <button className="w-full rounded-md bg-blue-400 px-3 py-1.5 text-sm text-white outline-none hover:bg-blue-500">
               Login
