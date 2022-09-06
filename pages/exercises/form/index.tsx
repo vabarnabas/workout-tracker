@@ -94,7 +94,7 @@ const ExerciseForm = () => {
                   .map((category) => (
                     <div
                       onClick={() => handleSelection(category.id)}
-                      className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-4 text-sm ${
+                      className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-3 text-sm ${
                         selectedCategories.includes(category.id)
                           ? "ring-1 ring-blue-400"
                           : ""

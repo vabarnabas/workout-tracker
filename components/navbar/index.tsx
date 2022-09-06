@@ -35,7 +35,9 @@ const Navbar = () => {
     },
     {
       title: "Profile",
-      action: () => {},
+      action: () => {
+        router.push("/profile")
+      },
       active: true,
       icon: <HiIdentification />,
     },
