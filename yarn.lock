@@ -2054,10 +2054,10 @@ word-wrap@^1.2.3:
   resolved "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz"
   integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
 
-workout-tracker-client@^1.1.18:
-  version "1.1.18"
-  resolved "https://registry.yarnpkg.com/workout-tracker-client/-/workout-tracker-client-1.1.18.tgz#524f847fe09a44b214aaa4d90d67e9d72e5f9884"
-  integrity sha512-PsXjBgK57lHFZCQDX9pAKEVP0lP+8ku8h7idMckQ33AqnpGsZa+mLEdg8d3ycB6xun2vNlMXAg1JJXI13NAsdw==
+workout-tracker-client@^1.1.21:
+  version "1.1.21"
+  resolved "https://registry.yarnpkg.com/workout-tracker-client/-/workout-tracker-client-1.1.21.tgz#c5db598a8aa427d559f4b037a1a70c075563eaef"
+  integrity sha512-JQJ6v+Rl6KTYRQJyLRu53G0X9IobElk1GT/zEEiFzk5rlOBw2qWmUy3kZzhOF8Nq9xh+N/gXwRGv338Wq0OaBQ==
 
 wrappy@1:
   version "1.0.2"

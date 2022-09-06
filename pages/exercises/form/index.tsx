@@ -37,6 +37,7 @@ const ExerciseForm = () => {
         const workout = await client.createWorkout({
           token,
           displayName,
+          verified: false,
         })
         selectedCategories.forEach(async (category) => {
           await client.connectWorkout({

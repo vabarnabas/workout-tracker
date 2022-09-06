@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import { HiPlus, HiPlusSm } from "react-icons/hi"
+import { HiBadgeCheck, HiPlus, HiPlusSm } from "react-icons/hi"
 import { useClient } from "workout-tracker-client"
 import { Workout } from "workout-tracker-client/dist/types"
 import Layout from "../../components/layout"
@@ -43,7 +43,12 @@ const Exercises = () => {
                   `}
                 key={workout.id}
               >
-                <p className="">{workout.displayName}</p>
+                <div className="flex items-center justify-center">
+                  {workout.displayName}
+                  {workout.verified && (
+                    <HiBadgeCheck className="ml-1 text-blue-400" />
+                  )}
+                </div>
                 {workout.categories.length !== 0 && (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {workout.categories.map((category) => (

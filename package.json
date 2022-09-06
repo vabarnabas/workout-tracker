@@ -30,6 +30,6 @@
     "react-icons": "^4.4.0",
     "tailwindcss": "^3.1.8",
     "typescript": "4.7.4",
-    "workout-tracker-client": "^1.1.18"
+    "workout-tracker-client": "^1.1.21"
   }
 }
