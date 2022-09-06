@@ -37,10 +37,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@headlessui/react@^0.0.0-insiders.b301f04":
-  version "0.0.0-insiders.b301f04"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.0.0-insiders.b301f04.tgz#12f209097f987cddbba72de40240a12648ebe12b"
-  integrity sha512-I+UUEUkdYp+AgKU1teWUZaICEg//OWl0R1UxCB50Jzfi3APu7aSY0Y+ABrgfEWDhBYTG9hNgXvMVTNCnFu49yA==
+"@headlessui/react@^0.0.0-insiders.0954ec5":
+  version "0.0.0-insiders.0954ec5"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.0.0-insiders.0954ec5.tgz#cd5f804174accb4bfe17b913b5d625140d9d21e1"
+  integrity sha512-7+SeKY0LNgJCG+ZwT7XSpIDq3P4xpvtRFl/L9xLmj2Dv4JfdKzXCdc1sapzwa6PEWodpfipLn8emyo6/PS92Gw==
 
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"

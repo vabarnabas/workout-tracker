@@ -8,9 +8,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // console.log(!token && !pagepath.includes("login"))
-  console.log(token)
-
   if (
     !token &&
     !req.nextUrl.pathname.startsWith("/login") &&

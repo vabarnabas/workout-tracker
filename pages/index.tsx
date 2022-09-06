@@ -25,12 +25,7 @@ const Home: NextPage = () => {
       <div className="flex h-full w-full flex-col items-center justify-start gap-y-2 px-2">
         <div className="w-full space-y-1">
           <p className="mb-1 text-xs font-medium">Posts</p>
-          {users.map((user) => (
-            <div key={user.id} className="rounded-md border bg-white px-2 py-2">
-              <p className="font-medium text-lime-500">{`${user.displayName}`}</p>
-              <p className="-mt-1 text-xs">{`@${user.handle}`}</p>
-            </div>
-          ))}
+          <button onClick={() => alert("saa")}>aaaa</button>
         </div>
       </div>
     </Layout>
