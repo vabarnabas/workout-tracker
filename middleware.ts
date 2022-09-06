@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import TokenService from "./services/token.service"
+import { verify } from "./services/verifyToken"
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")
@@ -9,10 +10,18 @@ export async function middleware(req: NextRequest) {
   }
 
   if (
-    !token &&
     !req.nextUrl.pathname.startsWith("/login") &&
     !req.nextUrl.pathname.includes("_")
   ) {
-    return NextResponse.redirect(new URL("/login", req.url))
+    if (token === undefined) {
+      return NextResponse.redirect(new URL("/login", req.url))
+    }
+
+    try {
+      verify(token, "at-secret")
+      return NextResponse.next()
+    } catch (error) {
+      return NextResponse.redirect(new URL("/login", req.url))
+    }
   }
 }

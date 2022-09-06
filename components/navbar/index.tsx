@@ -10,9 +10,12 @@ import {
 import { BiDumbbell } from "react-icons/bi"
 import { FaStickyNote } from "react-icons/fa"
 import { useRouter } from "next/router"
+import TokenService from "../../services/token.service"
 
 const Navbar = () => {
   const router = useRouter()
+  const tokenservice = new TokenService()
+
   const menuOptions = [
     { title: "Plans", action: () => {}, active: true, icon: <HiCollection /> },
     {
@@ -31,7 +34,10 @@ const Navbar = () => {
     },
     {
       title: "Logout",
-      action: () => {},
+      action: () => {
+        tokenservice.deleteToken()
+        router.push("/login")
+      },
       active: true,
       icon: <HiLockClosed />,
     },
