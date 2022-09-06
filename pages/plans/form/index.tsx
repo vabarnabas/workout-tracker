@@ -2,12 +2,12 @@ import React, { Fragment, SyntheticEvent, useEffect, useState } from "react"
 import Layout from "../../../components/layout"
 import { useClient } from "workout-tracker-client"
 import TokenService from "../../../services/token.service"
-import { Category, Workout } from "workout-tracker-client/dist/types"
+import { Category, User, Workout } from "workout-tracker-client/dist/types"
 import Spinner from "../../../components/spinner"
 import { HiCheckCircle } from "react-icons/hi"
 import { useRouter } from "next/router"
 
-const ExerciseForm = () => {
+const PlanForm = () => {
   const tokenservice = new TokenService()
   const router = useRouter()
   const [displayName, setDisplayName] = useState("")
@@ -15,13 +15,16 @@ const ExerciseForm = () => {
   const [workouts, setWorkouts] = useState<Workout[]>([])
   const [error, setError] = useState("")
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([])
+  const [currentUser, setCurrentUser] = useState<User>({} as User)
   const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
 
   useEffect(() => {
     const getData = async () => {
       const token = await tokenservice.getToken()
-      const data = await client.getWorkouts({ token })
-      setWorkouts(data)
+      const workoutData = await client.getWorkouts({ token })
+      const userData = await client.getCurrentUser({ token })
+      setWorkouts(workoutData)
+      setCurrentUser(userData)
     }
 
     getData()
@@ -38,6 +41,7 @@ const ExerciseForm = () => {
         const plan = await client.createPlan({
           token,
           displayName,
+          createdBy: currentUser.id,
         })
         selectedWorkouts.forEach(async (workout) => {
           await client.connectWorkout({
@@ -134,4 +138,4 @@ const ExerciseForm = () => {
   )
 }
 
-export default ExerciseForm
+export default PlanForm

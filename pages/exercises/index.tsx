@@ -43,7 +43,7 @@ const Exercises = () => {
                   `}
                 key={workout.id}
               >
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center text-base font-medium">
                   {workout.displayName}
                   {workout.verified && (
                     <HiBadgeCheck className="ml-1 text-blue-400" />

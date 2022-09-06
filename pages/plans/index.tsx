@@ -13,7 +13,7 @@ import { Plan } from "workout-tracker-client/dist/types"
 import Layout from "../../components/layout"
 import TokenService from "../../services/token.service"
 
-const Exercises = () => {
+const Plans = () => {
   const router = useRouter()
   const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
   const tokenservice = new TokenService()
@@ -79,11 +79,16 @@ const Exercises = () => {
                 key={plan.id}
               >
                 <div className="flex w-full items-center justify-between">
-                  <p className="">{plan.displayName}</p>
+                  <div className="">
+                    <p className="text-base font-medium">{plan.displayName}</p>
+                    <p className="text-xs font-light opacity-60">{`@${
+                      plan.user && plan.user.handle
+                    }`}</p>
+                  </div>
                   {selectedPlan === plan.id ? (
-                    <HiChevronUp className="text-lg" />
+                    <HiChevronUp className="text-xl" />
                   ) : (
-                    <HiChevronDown className="text-lg" />
+                    <HiChevronDown className="text-xl" />
                   )}
                 </div>
                 {selectedPlan === plan.id && plan.workouts.length !== 0 && (
@@ -106,4 +111,4 @@ const Exercises = () => {
   )
 }
 
-export default Exercises
+export default Plans
