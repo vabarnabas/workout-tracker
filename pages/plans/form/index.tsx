@@ -104,7 +104,7 @@ const PlanForm = () => {
             </div>
             <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
-                Workouts<span className="text-rose-500">*</span>
+                Exercises<span className="text-rose-500">*</span>
               </p>
               <input
                 value={query}

@@ -135,7 +135,7 @@ const Plans = () => {
                   )}
                   <div className="flex items-center justify-center gap-x-3">
                     <button
-                      onClick={() => router.push("/plans/form")}
+                      onClick={() => router.push(`/plans/${plan.id}`)}
                       className="mt-4 flex min-w-max items-center justify-center rounded-md bg-blue-400 px-3 py-1 text-xs text-white outline-none hover:bg-blue-500"
                     >
                       Open
