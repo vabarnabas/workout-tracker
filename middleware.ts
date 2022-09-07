@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
-import TokenService from "./services/token.service"
 import { verify } from "./services/verifyToken"
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")
 
   if (req.nextUrl.pathname.startsWith("/login")) {
+    if (token === undefined || token === "undefined") {
+      req.cookies.delete("token")
+    }
     return NextResponse.next()
   }
 
@@ -13,7 +15,8 @@ export async function middleware(req: NextRequest) {
     !req.nextUrl.pathname.startsWith("/login") &&
     !req.nextUrl.pathname.includes("_")
   ) {
-    if (token === undefined) {
+    if (token === undefined || token === "undefined") {
+      req.cookies.delete("token")
       return NextResponse.redirect(new URL("/login", req.url))
     }
 

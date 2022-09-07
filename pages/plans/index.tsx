@@ -128,6 +128,20 @@ const Plans = () => {
                       ))}
                     </div>
                   )}
+                  <div className="flex items-center justify-center gap-x-3">
+                    <button
+                      onClick={() => router.push("/plans/form")}
+                      className="mt-4 flex min-w-max items-center justify-center rounded-md bg-blue-400 px-3 py-1 text-xs text-white outline-none hover:bg-blue-500"
+                    >
+                      Open
+                    </button>
+                    <button
+                      onClick={() => router.push("/plans/form")}
+                      className="mt-4 flex min-w-max items-center justify-center rounded-md py-1 px-1 text-xs text-blue-400  outline-none hover:underline"
+                    >
+                      Edit
+                    </button>
+                  </div>
                 </div>
               ))}
           </div>

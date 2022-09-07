@@ -4,7 +4,7 @@ import { useClient } from "workout-tracker-client"
 import TokenService from "../../../services/token.service"
 import { Category, User, Workout } from "workout-tracker-client/dist/types"
 import Spinner from "../../../components/spinner"
-import { HiCheckCircle } from "react-icons/hi"
+import { HiBadgeCheck, HiCheckCircle } from "react-icons/hi"
 import { useRouter } from "next/router"
 
 const PlanForm = () => {
@@ -107,18 +107,23 @@ const PlanForm = () => {
                       .includes(query.toLocaleLowerCase())
                   )
                   .sort((a, b) => a.displayName.localeCompare(b.displayName))
-                  .map((category) => (
+                  .map((workout) => (
                     <div
-                      onClick={() => handleSelection(category.id)}
+                      onClick={() => handleSelection(workout.id)}
                       className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-3 text-sm ${
-                        selectedWorkouts.includes(category.id)
+                        selectedWorkouts.includes(workout.id)
                           ? "ring-1 ring-blue-400"
                           : ""
                       }`}
-                      key={category.id}
+                      key={workout.id}
                     >
-                      <p className="">{category.displayName}</p>
-                      {selectedWorkouts.includes(category.id) && (
+                      <p className="flex items-center justify-center">
+                        {workout.displayName}
+                        {workout.verified && (
+                          <HiBadgeCheck className="ml-1 text-blue-400" />
+                        )}
+                      </p>
+                      {selectedWorkouts.includes(workout.id) && (
                         <HiCheckCircle className="text-base text-blue-400" />
                       )}
                     </div>
