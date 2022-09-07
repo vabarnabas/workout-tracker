@@ -22,3 +22,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+textarea {
+  resize: none;
+}

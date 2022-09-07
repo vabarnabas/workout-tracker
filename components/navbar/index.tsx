@@ -2,28 +2,53 @@ import { Menu, Transition } from "@headlessui/react"
 import React, { Fragment, useEffect, useState } from "react"
 import {
   HiChevronDown,
+  HiCog,
   HiCollection,
+  HiDocument,
   HiFolder,
   HiIdentification,
   HiLockClosed,
+  HiUserCircle,
 } from "react-icons/hi"
 import { BiDumbbell } from "react-icons/bi"
 import { FaStickyNote } from "react-icons/fa"
 import { useRouter } from "next/router"
 import TokenService from "../../services/token.service"
+import { useClient } from "workout-tracker-client"
+import { User } from "workout-tracker-client/dist/types"
 
 const Navbar = () => {
   const router = useRouter()
+  const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
+  const [currentUser, setCurrentUser] = useState({} as User)
   const tokenservice = new TokenService()
 
+  useEffect(() => {
+    const getData = async () => {
+      const token = await tokenservice.getToken()
+      const userData = await client.getCurrentUser({ token })
+      setCurrentUser(userData)
+    }
+
+    getData()
+  }, [])
+
   const menuOptions = [
+    {
+      title: "Collections",
+      action: () => {
+        router.push("/plans")
+      },
+      active: true,
+      icon: <HiCollection />,
+    },
     {
       title: "Plans",
       action: () => {
         router.push("/plans")
       },
       active: true,
-      icon: <HiCollection />,
+      icon: <HiDocument />,
     },
     {
       title: "Exercises",
@@ -34,12 +59,12 @@ const Navbar = () => {
       icon: <HiFolder />,
     },
     {
-      title: "Profile",
+      title: "Settings",
       action: () => {
         router.push("/profile")
       },
       active: true,
-      icon: <HiIdentification />,
+      icon: <HiCog />,
     },
     {
       title: "Logout",

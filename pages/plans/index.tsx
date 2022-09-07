@@ -117,13 +117,18 @@ const Plans = () => {
                     )}
                   </div>
                   {selectedPlan === plan.id && plan.workouts.length !== 0 && (
+                    <p className="mt-3 text-xs opacity-60">
+                      {plan.description}
+                    </p>
+                  )}
+                  {selectedPlan === plan.id && plan.workouts.length !== 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {plan.workouts.map((category) => (
+                      {plan.workouts.map((workout) => (
                         <p
-                          key={category.id}
+                          key={workout.id}
                           className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
                         >
-                          {category.displayName}
+                          {workout.displayName}
                         </p>
                       ))}
                     </div>

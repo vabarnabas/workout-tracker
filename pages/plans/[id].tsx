@@ -1,13 +1,13 @@
 import React, { Fragment, SyntheticEvent, useEffect, useState } from "react"
-import Layout from "../../../components/layout"
+import Layout from "../../components/layout"
 import { useClient } from "workout-tracker-client"
-import TokenService from "../../../services/token.service"
+import TokenService from "../../services/token.service"
 import { Category, User, Workout } from "workout-tracker-client/dist/types"
-import Spinner from "../../../components/spinner"
+import Spinner from "../../components/spinner"
 import { HiBadgeCheck, HiCheckCircle } from "react-icons/hi"
 import { useRouter } from "next/router"
 
-const PlanForm = () => {
+const PlanView = () => {
   const tokenservice = new TokenService()
   const router = useRouter()
   const [displayName, setDisplayName] = useState("")
@@ -19,13 +19,16 @@ const PlanForm = () => {
   const [currentUser, setCurrentUser] = useState<User>({} as User)
   const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
 
+  const { id } = router.query
+
   useEffect(() => {
     const getData = async () => {
       const token = await tokenservice.getToken()
-      const workoutData = await client.getWorkouts({ token })
-      const userData = await client.getCurrentUser({ token })
-      setWorkouts(workoutData)
-      setCurrentUser(userData)
+      
+      // const workoutData = await client.getWorkouts({ token })
+      // const userData = await client.getCurrentUser({ token })
+      // setWorkouts(workoutData)
+      // setCurrentUser(userData)
     }
 
     getData()
@@ -171,4 +174,4 @@ const PlanForm = () => {
   )
 }
 
-export default PlanForm
+export default PlanView
