@@ -4,6 +4,7 @@ import { useClient } from "workout-tracker-client"
 import TokenService from "../../services/token.service"
 import {
   Category,
+  Collection,
   Plan,
   User,
   Workout,
@@ -18,7 +19,7 @@ const PlanView = () => {
   // const [displayName, setDisplayName] = useState("")
   // const [description, setDescription] = useState("")
   // const [query, setQuery] = useState("")
-  const [plan, setPlan] = useState({} as Plan)
+  const [collection, setCollection] = useState({} as Collection)
   const [error, setError] = useState("")
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([])
   // const [currentUser, setCurrentUser] = useState<User>({} as User)
@@ -26,18 +27,16 @@ const PlanView = () => {
 
   const { id } = router.query
 
-  console.log(plan)
-
   useEffect(() => {
     const getData = async () => {
       const token = await tokenservice.getToken()
 
-      const planData = await client.getSpecificPlan({
+      const collectionData = await client.getSpecificCollection({
         token,
         id: Array.isArray(id) ? id[0] : id || "",
       })
 
-      setPlan(planData)
+      setCollection(collectionData)
 
       // const workoutData = await client.getWorkouts({ token })
       // const userData = await client.getCurrentUser({ token })
@@ -89,7 +88,7 @@ const PlanView = () => {
   return (
     <Layout>
       <div className="h-full w-full overflow-y-auto px-4 py-2">
-        {Object.keys(plan).length === 0 ? (
+        {Object.keys(collection).length === 0 ? (
           <Spinner />
         ) : (
           <form
@@ -98,9 +97,11 @@ const PlanView = () => {
             className="space-y-3"
           >
             <div className="">
-              <p className="w-full text-2xl font-bold">{plan.displayName}</p>
+              <p className="w-full text-2xl font-bold">
+                {collection.displayName}
+              </p>
               <p className="mt-2 w-full text-sm opacity-60">
-                {plan.description}
+                {collection.description}
               </p>
             </div>
             {/* <div className="">
@@ -141,7 +142,7 @@ const PlanView = () => {
                 className="mb-3 w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
               /> */}
               <div className="grid grid-cols-1 gap-x-3 gap-y-3">
-                {plan.workouts
+                {collection.plans
                   .sort((a, b) => a.displayName.localeCompare(b.displayName))
                   .map((workout) => (
                     <div
@@ -155,18 +156,15 @@ const PlanView = () => {
                       <div className="flex flex-col items-start">
                         <p className="flex items-center justify-center">
                           {workout.displayName}
-                          {workout.verified && (
-                            <HiBadgeCheck className="ml-1 text-blue-400" />
-                          )}
                         </p>
-                        {workout.categories.length !== 0 && (
+                        {workout.workouts.length !== 0 && (
                           <div className="mt-2 flex flex-wrap gap-2">
-                            {workout.categories.map((category: Category) => (
+                            {workout.workouts.map((workout) => (
                               <p
-                                key={category.id}
+                                key={workout.id}
                                 className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
                               >
-                                {category.displayName}
+                                {workout.displayName}
                               </p>
                             ))}
                           </div>

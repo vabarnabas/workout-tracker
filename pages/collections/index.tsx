@@ -89,44 +89,44 @@ const Collections = () => {
           <div className="grid grid-cols-1 gap-x-4 gap-y-3">
             {collections
               .sort((a, b) => a.displayName.localeCompare(b.displayName))
-              .filter((plan) =>
-                plan.displayName
+              .filter((collection) =>
+                collection.displayName
                   .toLocaleLowerCase()
                   .includes(query.toLocaleLowerCase())
               )
-              .map((plan) => (
+              .map((collection) => (
                 <div
                   onClick={() => {
-                    handleSelection(plan.id)
+                    handleSelection(collection.id)
                   }}
                   className={`flex cursor-pointer flex-col items-start justify-center rounded-md bg-lighterGray py-2.5 px-4 text-sm
                 `}
-                  key={plan.id}
+                  key={collection.id}
                 >
                   <div className="flex w-full items-center justify-between">
                     <div className="">
                       <p className="text-base font-medium">
-                        {plan.displayName}
+                        {collection.displayName}
                       </p>
                       <p className="text-xs font-light opacity-60">{`@${
-                        plan.user && plan.user.handle
+                        collection.user && collection.user.handle
                       }`}</p>
                     </div>
-                    {selectedCollection === plan.id ? (
+                    {selectedCollection === collection.id ? (
                       <HiChevronUp className="text-lg" />
                     ) : (
                       <HiChevronDown className="text-xl" />
                     )}
                   </div>
-                  {selectedCollection === plan.id &&
-                    plan.plans.length !== 0 && (
+                  {selectedCollection === collection.id &&
+                    collection.plans.length !== 0 && (
                       <p className="mt-3 text-xs opacity-60">
-                        {plan.description}
+                        {collection.description}
                       </p>
                     )}
-                  {selectedCollection === plan.id && plan.plans.length !== 0 && (
+                  {selectedCollection === collection.id && collection.plans.length !== 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {plan.plans.map((plan) => (
+                      {collection.plans.map((plan) => (
                         <p
                           key={plan.id}
                           className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
@@ -140,7 +140,7 @@ const Collections = () => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation()
-                        router.push(`/plans/${plan.id}`)
+                        router.push(`/collections/${collection.id}`)
                       }}
                       className="mt-4 flex min-w-max items-center justify-center rounded-md bg-blue-400 px-3 py-1 text-xs text-white outline-none hover:bg-blue-500"
                     >
