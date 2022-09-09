@@ -95,35 +95,41 @@ const PlanView = () => {
             className="space-y-3"
           >
             <div className="">
+              <p className="w-full text-2xl font-bold">{plan.displayName}</p>
+              <p className="mt-2 w-full text-sm opacity-60">
+                {plan.description}
+              </p>
+            </div>
+            {/* <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
                 Plan Name<span className="text-rose-500">*</span>
               </p>
-              {/* <input
+              <input
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 type="text"
                 className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
                 required
-              /> */}
+              />
               <p className="w-full pl-1 text-sm">{plan.displayName}</p>
-            </div>
-            <div className="">
+            </div> */}
+            {/* <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
                 Description<span className="text-rose-500">*</span>
               </p>
-              {/* <textarea
+              <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
                 required
                 rows={3}
-              /> */}
+              />
               <p className="w-full pl-1 text-sm">{plan.description}</p>
-            </div>
+            </div> */}
             <div className="">
-              <p className="mb-0.5 pl-1 text-xs text-blue-400">
+              {/* <p className="mb-0.5 pl-1 text-xs text-blue-400">
                 Exercises<span className="text-rose-500">*</span>
-              </p>
+              </p> */}
               {/* <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
