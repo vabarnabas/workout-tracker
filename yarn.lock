@@ -2162,10 +2162,10 @@ word-wrap@^1.2.3:
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
   integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
 
-workout-tracker-client@^1.1.31:
-  version "1.1.31"
-  resolved "https://registry.yarnpkg.com/workout-tracker-client/-/workout-tracker-client-1.1.31.tgz#d16d6f10227e4ed55c91181632361e08de8b67b9"
-  integrity sha512-Qxr3bvdERVub74hO3X64MJVash9j/Ipqmoq1LnNeC8HLLX6p8ziYmYZPuAmQ82huqu7gIsYT3qsVjRbWZpRVhQ==
+workout-tracker-client@^1.1.34:
+  version "1.1.34"
+  resolved "https://registry.yarnpkg.com/workout-tracker-client/-/workout-tracker-client-1.1.34.tgz#173edd6f15b7d924d4a01c2c429d46a2ec9af705"
+  integrity sha512-Ghpt/ikHwEtLgJVG8W8t9h2VjTCrZ6VbsAjykI0ielZN0jZF25iI4t6FfjTse4lSPwxC3QBljJH/dh6Zi5L5qg==
   dependencies:
     module-alias "^2.2.2"
     ts-node "^10.9.1"
