@@ -37,7 +37,7 @@ const Navbar = () => {
     {
       title: "Collections",
       action: () => {
-        router.push("/plans")
+        router.push("/collections")
       },
       active: true,
       icon: <HiCollection />,

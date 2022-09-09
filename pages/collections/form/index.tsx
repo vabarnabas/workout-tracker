@@ -2,7 +2,7 @@ import React, { Fragment, SyntheticEvent, useEffect, useState } from "react"
 import Layout from "../../../components/layout"
 import { useClient } from "workout-tracker-client"
 import TokenService from "../../../services/token.service"
-import { Category, User, Workout } from "workout-tracker-client/dist/types"
+import { Plan, User } from "workout-tracker-client/dist/types"
 import Spinner from "../../../components/spinner"
 import { HiBadgeCheck, HiCheckCircle } from "react-icons/hi"
 import { useRouter } from "next/router"
@@ -13,18 +13,18 @@ const PlanForm = () => {
   const [displayName, setDisplayName] = useState("")
   const [description, setDescription] = useState("")
   const [query, setQuery] = useState("")
-  const [workouts, setWorkouts] = useState<Workout[]>([])
+  const [plans, setPlans] = useState<Plan[]>([])
   const [error, setError] = useState("")
-  const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([])
+  const [selectedPlans, setSelectedPlans] = useState<string[]>([])
   const [currentUser, setCurrentUser] = useState<User>({} as User)
   const client = useClient(process.env.NEXT_PUBLIC_API_URL || "")
 
   useEffect(() => {
     const getData = async () => {
       const token = await tokenservice.getToken()
-      const workoutData = await client.getWorkouts({ token })
+      const planData = await client.getPlans({ token })
       const userData = await client.getCurrentUser({ token })
-      setWorkouts(workoutData)
+      setPlans(planData)
       setCurrentUser(userData)
     }
 
@@ -34,26 +34,26 @@ const PlanForm = () => {
   const onFormSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setError("")
-    if (selectedWorkouts.length === 0) {
+    if (selectedPlans.length === 0) {
       setError("Please select at least 1 category")
     } else {
       const token = await tokenservice.getToken()
       try {
-        const plan = await client.createPlan({
+        const collection = await client.createCollection({
           token,
           displayName,
           description,
           createdBy: currentUser.id,
-          workouts: [],
+          plans: [],
         })
-        selectedWorkouts.forEach(async (workout) => {
-          await client.connectWorkout({
+        selectedPlans.forEach(async (plan) => {
+          await client.connectCollection({
             token,
-            id: workout,
-            planId: plan.id,
+            id: collection.id,
+            planId: plan,
           })
         })
-        router.push("/plans")
+        router.push("/collections")
       } catch {
         setError("Something went wrong")
       }
@@ -61,17 +61,15 @@ const PlanForm = () => {
   }
 
   const handleSelection = (id: string) => {
-    selectedWorkouts.includes(id)
-      ? setSelectedWorkouts(
-          selectedWorkouts.filter((category) => category !== id)
-        )
-      : setSelectedWorkouts([...selectedWorkouts, id])
+    selectedPlans.includes(id)
+      ? setSelectedPlans(selectedPlans.filter((category) => category !== id))
+      : setSelectedPlans([...selectedPlans, id])
   }
 
   return (
     <Layout>
       <div className="h-full w-full overflow-y-auto px-4 py-2">
-        {workouts.length === 0 ? (
+        {plans.length === 0 ? (
           <Spinner />
         ) : (
           <form
@@ -81,7 +79,7 @@ const PlanForm = () => {
           >
             <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
-                Plan Name<span className="text-rose-500">*</span>
+                Collection Name<span className="text-rose-500">*</span>
               </p>
               <input
                 value={displayName}
@@ -105,7 +103,7 @@ const PlanForm = () => {
             </div>
             <div className="">
               <p className="mb-0.5 pl-1 text-xs text-blue-400">
-                Exercises<span className="text-rose-500">*</span>
+                Plans<span className="text-rose-500">*</span>
               </p>
               <input
                 value={query}
@@ -115,44 +113,41 @@ const PlanForm = () => {
                 className="mb-3 w-full rounded-md bg-lighterGray px-3 py-1.5 text-sm outline-none"
               />
               <div className="grid grid-cols-1 gap-x-3 gap-y-3">
-                {workouts
-                  .filter((workout) =>
-                    workout.displayName
+                {plans
+                  .filter((plan) =>
+                    plan.displayName
                       .toLocaleLowerCase()
                       .includes(query.toLocaleLowerCase())
                   )
                   .sort((a, b) => a.displayName.localeCompare(b.displayName))
-                  .map((workout) => (
+                  .map((plan) => (
                     <div
-                      onClick={() => handleSelection(workout.id)}
+                      onClick={() => handleSelection(plan.id)}
                       className={`flex cursor-pointer items-center justify-between rounded-md bg-lighterGray py-1.5 px-3 text-sm ${
-                        selectedWorkouts.includes(workout.id)
+                        selectedPlans.includes(plan.id)
                           ? "ring-1 ring-blue-400"
                           : ""
                       }`}
-                      key={workout.id}
+                      key={plan.id}
                     >
                       <div className="flex flex-col items-start">
                         <p className="flex items-center justify-center">
-                          {workout.displayName}
-                          {workout.verified && (
-                            <HiBadgeCheck className="ml-1 text-blue-400" />
-                          )}
+                          {plan.displayName}
                         </p>
-                        {workout.categories.length !== 0 && (
+                        {plan.workouts.length !== 0 && (
                           <div className="mt-2 flex flex-wrap gap-2">
-                            {workout.categories.map((category) => (
+                            {plan.workouts.map((workout) => (
                               <p
-                                key={category.id}
+                                key={workout.id}
                                 className="rounded-md bg-lightGray px-3 py-1 text-center text-xs"
                               >
-                                {category.displayName}
+                                {workout.displayName}
                               </p>
                             ))}
                           </div>
                         )}
                       </div>
-                      {selectedWorkouts.includes(workout.id) && (
+                      {selectedPlans.includes(plan.id) && (
                         <HiCheckCircle className="text-base text-blue-400" />
                       )}
                     </div>
